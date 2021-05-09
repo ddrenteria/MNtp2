@@ -11,4 +11,9 @@ public:
 
     Vector predict(Matrix X);
 private:
+    unsigned int _k;
+
+    Matrix _fit_instances;
+
+    Matrix _fit_categories;
 };

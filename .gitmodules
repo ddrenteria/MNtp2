@@ -1,0 +1,6 @@
+[submodule "metnum-tp2-1C2021/tp2-alu/tp2/eigen-git-mirror"]
+	path = metnum-tp2-1C2021/tp2-alu/tp2/eigen
+	url = https://github.com/eigenteam/eigen-git-mirror
+[submodule "metnum-tp2-1C2021/tp2-alu/tp2/pybind11"]
+	path = metnum-tp2-1C2021/tp2-alu/tp2/pybind11
+	url = https://github.com/pybind/pybind11

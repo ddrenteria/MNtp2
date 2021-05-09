@@ -26,6 +26,7 @@ cd eigen && git checkout 3.3.7 && cd ..
 3. Instalar requerimientos (*Previamente activar el entorno virtual. Ver  más abajo*)
 
 ```
+
 pip install -r requirements.txt
 ```
 
@@ -64,6 +65,11 @@ curl https://pyenv.run | bash
 
 Luego, se sugiere agregar unas líneas al bashrc. Hacer eso, **REINICIAR LA CONSOLA** y luego...
 
+#bashrc
+#pyenv
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+
 ```
 pyenv install 3.6.5
 pyenv global 3.6.5
@@ -76,9 +82,10 @@ En el directorio del proyecto
 pyenv activate tp2
 ```
 
-### Directamente con python3
+### Directamente con python3 %%% USAR ESTE %%%
 ```
-python3 -m venv tp2
+apt-get install python3.7-venv
+python3.7 -m venv tp2
 source tp2/bin/activate
 ```
 
@@ -114,7 +121,7 @@ Ejecutar la primera celda del notebook `knn.ipynb` o seguir los siguientes pasos
 mkdir build
 cd build
 rm -rf *
-cmake -DPYTHON_EXECUTABLE="$(which python)" -DCMAKE_BUILD_TYPE=Release ..
+cmake -DPYTHON_EXECUTABLE="$(which python3)" -DCMAKE_BUILD_TYPE=Release ..
 ```
 - Al ejecutar el siguiente comando se compila e instala la librería en el directorio `notebooks`
 ```

@@ -5,17 +5,15 @@
 using namespace std;
 
 
-PCA::PCA(unsigned int n_components)
-{
+PCA::PCA(unsigned int n_components) {
 
 }
 
-void PCA::fit(Matrix X)
-{
+void PCA::fit(Matrix X) {
+
 }
 
 
-MatrixXd PCA::transform(Matrix X)
-{
+MatrixXd PCA::transform(Matrix X) {
   throw std::runtime_error("Sin implementar");
 }
