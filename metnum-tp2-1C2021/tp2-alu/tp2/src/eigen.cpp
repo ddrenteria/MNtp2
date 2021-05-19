@@ -5,6 +5,14 @@
 
 using namespace std;
 
+bool stoppingCriteria(const Vector& old_b, const Vector& b, const Matrix& A, double epsilon) {
+    return old_b.isApprox(b, epsilon);
+}
+
+// bool stoppingCriteria2(const Vector& old_b, const Vector& b, const Matrix& A,
+//                        double eigenvalue, double epsilon) {
+//     return (A*b).isApprox(eigenvalue*b, epsilon);
+// }
 
 pair<double, Vector> power_iteration(const Matrix& X, unsigned num_iter, double eps) {
     bool correctEigenValue = false;
@@ -14,19 +22,22 @@ pair<double, Vector> power_iteration(const Matrix& X, unsigned num_iter, double 
     while(!correctEigenValue) {
         b = Vector::Random(X.cols());
 
-        for (unsigned i = 0; i < num_iter; i++) {
-            // TO DO: Agregar un metodo de parada
+        unsigned i = 0;
+        for (i = 0; i < num_iter; i++) {
+            Vector b_old = b;
             Vector Xb = X*b;
             b = Xb/ (Xb.lpNorm<2>());
+            if (stoppingCriteria(b_old, b, X, eps)) {
+                break;
+            }
         }
 
         eigenvalue = (b.transpose()* X*b / (b.transpose() * b))(0);
         
         // validate eigenvalue
         if ((X*b).isApprox(eigenvalue*b, eps)) correctEigenValue = true;
+        cout << "no sale" << endl;
     }
-    cout << "eigen " << b << endl;
-    cout << "X " << X << endl;
 
     return make_pair(eigenvalue, b /* / b.norm() */);
 }
@@ -39,10 +50,10 @@ pair<Vector, Matrix> get_first_eigenvalues(const Matrix& X, unsigned alpha, unsi
     for (unsigned i = 0; i < alpha; i++) {
         pair<double, Vector> pair = power_iteration(A, num_iter, epsilon);
         A = A-(pair.first * (pair.second * pair.second.transpose()));
-        cout << "resta" << (pair.second * pair.second.transpose()) << endl;
         
         eigenvalues(i) = pair.first;
         eigenvectors.col(i) = pair.second;
+        cout << i << " " << pair.first << endl; 
     }
     
     return make_pair(eigenvalues, eigenvectors);
