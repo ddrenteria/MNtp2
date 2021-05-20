@@ -41,7 +41,9 @@ Vector KNNClassifier::predict(Matrix X) {
             indexesAndDistance.push_back(make_tuple(index, distance));
             distances(index) = maxNorm + 1;
         }
-        auto max = max_element(categoryCounter.begin(), categoryCounter.end());
+        auto max = max_element(categoryCounter.begin(), categoryCounter.end(), [] (pair<const double,int> & p1,  pair<const double,int> & p2) {
+            return p1.second < p2.second;
+        });
         ret(i) = max->first;
     }
 
