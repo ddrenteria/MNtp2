@@ -1,6 +1,7 @@
 #include <algorithm>
 #include <chrono>
 #include <iostream>
+#include <fstream>
 #include "eigen.h"
 
 using namespace std;
@@ -46,6 +47,12 @@ pair<Vector, Matrix> get_first_eigenvalues(const Matrix& X, unsigned alpha, unsi
     Matrix A(X);
     Vector eigenvalues(alpha);
     Matrix eigenvectors(A.rows(), alpha);
+    // code to print autovectors and autovalues
+    // ofstream value_file;
+    // value_file.open("eigenvalues_save.csv");
+    // ofstream vectors_file;
+    // vectors_file.open("eigenvectors_save.csv");
+
 
     for (unsigned i = 0; i < alpha; i++) {
         pair<double, Vector> pair = power_iteration(A, num_iter, epsilon);
@@ -53,8 +60,12 @@ pair<Vector, Matrix> get_first_eigenvalues(const Matrix& X, unsigned alpha, unsi
         
         eigenvalues(i) = pair.first;
         eigenvectors.col(i) = pair.second;
-        cout << i << " " << pair.first << endl; 
+        cout << i << " " << pair.first << endl;
+        // value_file << pair.first << endl;
+        // vectors_file << pair.second.transpose() << endl;
     }
     
+    // value_file.close();
+    // vectors_file.close();
     return make_pair(eigenvalues, eigenvectors);
 }
